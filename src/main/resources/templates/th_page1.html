@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<section id="header">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+</section>
+<body>
+<section id ="mainbody">
+<div class=".container-fluid" id='root'>
+</div>
+</section>
+<button  type="button" onclick="buildit()">Build</button>
+</body>
+<script>
+    let xmlContent = '';
+    let root = document.getElementById('root');
+
+    //update final path  
+    fetch('templates/tempi.xml').then((response) => {
+    	console.log(response);
+        response.text().then((xml) => {
+            xmlContent = xml;
+
+            let parser = new DOMParser();
+            let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
+            console.log(xmlDOM);
+            let rows = xmlDOM.querySelectorAll('section');
+            let id = new Set();
+
+            rows.forEach(rownode => {
+
+                var i = parseInt(rownode.getAttribute('row'));
+                id.add(i);
+
+            });
+
+
+            var newid = Array.from(id).sort();
+
+            console.log(newid);
+
+
+            // creating all the rows that are needed
+            for (let item of newid) {
+                var div = document.createElement('div');
+                div.setAttribute('class', 'row');
+                div.setAttribute('id', item);
+                div.setAttribute('text-align', 'center');
+                root.append(div)
+            }
+            // adding columns that 
+
+            rows.forEach(rownode => {
+
+                var i = rownode.getAttribute('row');
+
+                var myrow = document.getElementById(i);
+
+                var divchild = document.createElement('div');
+                var len = rownode.getAttribute('col');
+
+                var g = "";
+                if (len.length == 0) {
+                    g = "col";
+                }
+                else {
+                    var t = parseInt(len);
+                    g = "col-md-" + len;
+                }
+
+                divchild.setAttribute('class', g);
+                var name = rownode.getAttribute('name');
+                console.log(name);
+                var h4 = document.createElement('h4');
+                h4.innerText = name;
+                h4.setAttribute('color', '#8a8787');
+                divchild.append(h4);
+
+                var h6 = document.createElement('h6');
+                st = rownode.getAttribute('value');
+                st = st.replaceAll('&lt;', '<');
+                st = st.replaceAll('&gt;', '>');
+                h6.innerHTML = st;
+                divchild.append(h6);
+                divchild.setAttribute('style', 'border:solid')
+                myrow.append(divchild);
+
+            });
+
+        });
+    });
+</script>
+
+
+
+<script>
+    function buildit() {
+        var start = document.getElementById('header').innerHTML;
+        var middle = document.getElementById('mainbody').innerHTML;
+        var header = document.head.innerHTML;
+        var test = "<html><head>";
+            start=test+start+"</head><body>"+middle+"</html>";
+        console.log(start);
+    }
+</script>
+</html>

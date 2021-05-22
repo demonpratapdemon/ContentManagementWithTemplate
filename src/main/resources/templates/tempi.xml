@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<template>
+	<section name="Programs Offered"
+		value="&amp;lt;p&amp;gt;MBBS&amp;lt;/p&amp;gt;
+" row="1" col="1"></section>
+	<section name="Duration"
+		value="&amp;lt;p&amp;gt;10years&amp;lt;/p&amp;gt;
+" row="1" col="2"></section>
+	<section name="Eligibility"
+		value="&amp;lt;p&amp;gt;NEET&amp;lt;/p&amp;gt;
+" row="2" col="1"></section>
+</template>
