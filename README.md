@@ -8,9 +8,9 @@ The Content Author is responsible for providing inputs for the various fields of
 The Content Admin is responsible for viewing the template with the contents created in the above 2 process and download it. They are also responsible for providing inline CSS to the viewing and uploading the latest template verison along with the previously entered contents.
 
 # Tech Stack
-XML
-XSLT
-JSP
+**XML**,
+**XSLT**,
+**JSP**
 
 # Rich Text Editor
 CKEditor
